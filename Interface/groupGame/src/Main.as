@@ -19,6 +19,10 @@ package
 		private var textBox:TextField = new TextField();
 		private var textStyle:TextFormat = new TextFormat("Arial", 18, 0x000000);
 		
+		[Embed(source = "../res/goodClick.mp3")]
+		private var GoodClick:Class; 		 
+		private var goodClickSound:Sound;		     
+		
 		public function Main() 
 		{	
 			addChild(cam);
@@ -32,6 +36,8 @@ package
 			textBox.defaultTextFormat = textStyle;
 			addChild(textBox);
 			
+			goodClickSound = (new GoodClick) as Sound; 	
+			
 			stage.addEventListener(Event.ENTER_FRAME, checkStuff);
 			stage.addEventListener(MouseEvent.MOUSE_DOWN, mDown);
 			cam.setChildIndex(target, cam.numChildren - 1);
@@ -39,7 +45,41 @@ package
 		
 		public function mDown(e:MouseEvent):void
 		{
-			score += 1;
+			if ((mouseX < (target.x + (target.width / 2))) && (mouseX > (target.x - (target.width / 2))) && 
+				(mouseY < (target.y + (target.height / 2))) && (mouseY > (target.y - (target.height / 2))))
+			{
+				goodClickSound.play(0, 1);
+				score += 1;
+				target.x = (Math.round(Math.random() * 800));
+				target.y = (Math.round(Math.random() * 600));
+				
+				if ((Math.round(Math.random() * 2)) < 2)
+				{
+					target.xSpeed *= -1;
+				}
+				if ((Math.round(Math.random() * 600)) < 2)
+				{
+					target.ySpeed *= -1;
+				}
+				
+				if (target.xSpeed < 1)
+				{
+					target.xSpeed -= 1;
+				}
+				else
+				{
+					target.xSpeed += 1;
+				}
+				if (target.ySpeed < 1)
+				{
+					target.ySpeed -= 1;
+				}
+				else
+				{
+					target.ySpeed += 1;
+				}
+				target.adjust();
+			}
 		}
 		
 		

@@ -16,7 +16,7 @@
     </define>
     <define append="true">
       <name>CONFIG::timeStamp</name>
-      <value>'11/9/2016'</value>
+      <value>'11/10/2016'</value>
     </define>
     <define append="true">
       <name>CONFIG::air</name>
@@ -40,7 +40,7 @@
     <path-element>C:\Users\Robert\Documents\Computer Science\3100 Software Engineering I\GroupProject\Interface\groupGame\src\Main.as</path-element>
   </file-specs>
   <default-background-color>#FFFFFF</default-background-color>
-  <default-frame-rate>30</default-frame-rate>
+  <default-frame-rate>45</default-frame-rate>
   <default-size>
     <width>800</width>
     <height>600</height>
