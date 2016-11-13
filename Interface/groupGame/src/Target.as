@@ -5,12 +5,16 @@ package
 	{
 		public var xSpeed:int = 5;
 		public var ySpeed:int = 5;
+		public var radius:int = 25;
+		public var radiusTimer:int = 10;
+		public var radiusTimerMax:int = 10;
+		public var radiusMin:int = 5;
 		
 		
 		public function Target() 
 		{
 			this.graphics.beginFill(0x0000FF, 1);
-			this.graphics.drawCircle(this.x, this.y, 25);
+			this.graphics.drawCircle(this.x, this.y, radius);
 			this.graphics.endFill();
 		}
 		
@@ -18,6 +22,7 @@ package
 		{
 			this.y += ySpeed;
 			this.x += xSpeed;
+			
 			if (this.y + (this.height / 2) > 600)
 			{
 				this.ySpeed *= -1;
@@ -39,6 +44,18 @@ package
 				this.xSpeed *= -1;
 				this.x = (this.width / 2);
 			}
+			
+			/*
+			radiusTimer -= 1;
+			if (radiusTimer < 0)
+			{
+				radiusTimer = radiusTimerMax;
+				radius -= 1;
+			}
+			if (radius < radiusMin)
+			{
+				radius = radiusMin;
+			}*/
 		}
 		
 	}
