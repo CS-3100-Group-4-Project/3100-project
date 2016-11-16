@@ -101,7 +101,7 @@ Password: '.$password.'
 ------------------------
  
 Please click this link to activate your account:
-http://www.yourwebsite.com/verify.php?email='.$email.'&hash='.$hash.'
+http://localhost/verifyemailandstuff.php?email='.$email.'&hash='.$hash.'
  
 '; // Our message above including the link
                      
