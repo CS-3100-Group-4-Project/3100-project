@@ -1,7 +1,7 @@
 <html>
 <body>
 
-<form action="gamescreen.php" method="post">
+<form action="pass_verify.php" method="post">
 <td width="150" align="left" valign="top" class="FormText"> 
 <div align="left">Username</div></td>
 <td width="250"> <input name="Username" type="name" id="Username" class="FormText"></td>
@@ -19,3 +19,4 @@
 
 <body>
 <html>
+
