@@ -28,4 +28,4 @@ includeAllFunctions
 	-includes all the php files in control/functions/ directory
 	
 createDatabase
-	-creates a database called mydb and inserts the users table as defined by users.sql
+	-runs the users.sql code in the mydb database within mySQL
