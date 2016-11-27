@@ -9,6 +9,7 @@ package
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	
+	[SWF(backgroundColor="0xec9900")]
 	public class Main extends Sprite 
 	{
 		private var cam:MovieClip = new MovieClip();
