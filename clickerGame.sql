@@ -18,24 +18,24 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `Player` (
-  `pid` int(6) UNSIGNED NOT NULL,
-  `username` varchar(30) NOT NULL,
+  `pid` int(6) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `username` varchar(30) UNIQUE NOT NULL,
   `password` varchar(30) NOT NULL,
-  PRIMARY KEY (username)
+  PRIMARY KEY (pid)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `Admin` (
-  `aid` int(6) UNSIGNED NOT NULL,
-  `username` varchar(30) NOT NULL,
+  `aid` int(6) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `username` varchar(30) UNIQUE NOT NULL,
   `password` varchar(30) NOT NULL,
-  PRIMARY KEY (username)
+  PRIMARY KEY (aid)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `Game` (
-  `gid` int(7) UNSIGNED NOT NULL,
+  `gid` int(7) UNSIGNED NOT NULL AUTO_INCREMENT,
   `pid` int(6) UNSIGNED NOT NULL,
   `score` int(10) UNSIGNED NOT NULL,
-  `game_time` int(10) UNSIGNED NOT NULL,
+  `game_time` TIME UNSIGNED NOT NULL,
   PRIMARY KEY (gid)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -44,7 +44,7 @@ CREATE TABLE `Statistics` (
   `highscore` int(6) UNSIGNED NOT NULL,
   `games_played` int(10) UNSIGNED NOT NULL,
   `clicks_per_min` int(6) UNSIGNED NOT NULL,
-  `total_time` int(25) UNSIGNED NOT NULL,
+  `total_time` TIME UNSIGNED NOT NULL,
   PRIMARY KEY (pid)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
