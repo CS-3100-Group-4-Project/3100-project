@@ -14,6 +14,7 @@ package
 		private var cam:MovieClip = new MovieClip();
 		public var target:Target = new Target;
 		private var playing:Boolean = true;
+		private var hud:HUD = new HUD();
 		private var score:int = 0;
 		private var time:int = 5;
 		private var timeFrames:int = 45;
@@ -32,6 +33,10 @@ package
 		public function Main() 
 		{	
 			addChild(cam);
+			
+			hud.x = 5;
+			hud.y = 5;
+			addChild(hud);
 			
 			target.x = xPos;
 			target.y = yPos;
@@ -62,7 +67,7 @@ package
 					(mouseY < (target.y + (target.height / 2))) && (mouseY > (target.y - (target.height / 2))))
 				{
 					goodClickSound.play(0, 1);
-					score += 1;
+					score += 10;
 					time = 5;
 					timeFrames = 45;
 					target.x = (Math.round(Math.random() * 800));

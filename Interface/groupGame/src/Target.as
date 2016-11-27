@@ -28,10 +28,10 @@ package
 				this.ySpeed *= -1;
 				this.y = 600 - (this.height / 2);
 			}
-			else if(this.y - (this.height / 2) < 0)
+			else if(this.y - (this.height / 2) < 100)
 			{
 				this.ySpeed *= -1;
-				this.y = (this.height / 2);
+				this.y = 100 + (this.height / 2);
 			}
 			
 			if (this.x + (this.width / 2) > 800)
