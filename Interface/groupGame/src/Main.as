@@ -32,7 +32,7 @@ package
 		private var goodClickSound:Sound;		     
 		
 		public function Main() 
-		{	
+		{
 			addChild(cam);
 			
 			hud.x = 5;
@@ -52,6 +52,9 @@ package
 			timeBox.y = 40;
 			timeBox.defaultTextFormat = textStyle;
 			addChild(timeBox);
+			
+			this.graphics.lineStyle(0, 0x000000, 0.5);
+			this.graphics.drawRect(0, 0, 799, 599);
 			
 			goodClickSound = (new GoodClick) as Sound; 	
 			
