@@ -27,12 +27,19 @@ package
 		private var replay:TextField = new TextField();
 		private var textStyle:TextFormat = new TextFormat("Arial", 18, 0x000000);
 		
+		[Embed(source = "../res/gameBackgroundMusic.mp3")]
+		private var music:Class;
+		private var bgm:Sound;
+		
 		[Embed(source = "../res/goodClick.mp3")]
 		private var GoodClick:Class; 		 
 		private var goodClickSound:Sound;		     
 		
 		public function Main() 
 		{
+			bgm = (new music) as Sound; 			     
+			bgm.play(0, 9999);
+			
 			addChild(cam);
 			
 			hud.x = 5;
