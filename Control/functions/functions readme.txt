@@ -17,3 +17,7 @@ getAllUsersInformation()
 getUsername()
 	-returns the username of the currently logged in user
 	-HELP: I have no clue how to do this.
+	
+	
+includeAllFunctions
+	-includes all the php files in control/functions/ directory
