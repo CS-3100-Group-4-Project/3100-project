@@ -17,3 +17,13 @@ getAllUsersInformation()
 getUsername()
 	-returns the username of the currently logged in user
 	-HELP: I have no clue how to do this.
+	
+getHighscore()
+	-returns the highscore of the currently logged in user
+	
+getGamesPlayed()
+	-return the number of games played by the currently logged in user
+	
+	
+includeAllFunctions
+	-includes all the php files in control/functions/ directory
