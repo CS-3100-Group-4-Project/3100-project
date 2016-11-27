@@ -21,7 +21,7 @@ getUsername()
 getHighscore()
 	-returns the highscore of the currently logged in user
 	
-getGamesPlayer()
+getGamesPlayed()
 	-return the number of games played by the currently logged in user
 	
 	
