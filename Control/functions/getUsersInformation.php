@@ -6,6 +6,7 @@ function getUsersInformation(){
 	mysqli_select_db($con, "mydb") or die(mysql_error()); 
 	//(`username`, `password`, `hash`, `high_score`, `online`, `email`, `num_games`)
 	$results=mysqli_query("SELECT username,high_score,online,email,num_games FROM users WHERE username = '$username'");
+	mysqli_close($con);
 	return $results;
 }
 ?>

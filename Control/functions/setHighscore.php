@@ -12,5 +12,6 @@ function setHighscore($score){
 		mysqli_query("UPDATE users SET high_score='$score' WHERE username = '$username' ");
 		mysqli_query("UPDATE users SET num_games='$currentGamesPlayed' WHERE username = '$username' ");
 	}	
+	mysqli_close($con);
 }
 ?>

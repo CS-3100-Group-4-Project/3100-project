@@ -16,7 +16,7 @@ getAllUsersInformation()
 
 getUsername()
 	-returns the username of the currently logged in user
-	-HELP: I have no clue how to do this.
+	-currently assumes only one player is logged in at a time, otherwise may return wrong username
 	
 getHighscore()
 	-returns the highscore of the currently logged in user
