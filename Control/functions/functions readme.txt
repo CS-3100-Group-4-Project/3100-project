@@ -23,7 +23,9 @@ getHighscore()
 	
 getGamesPlayed()
 	-return the number of games played by the currently logged in user
-	
-	
+		
 includeAllFunctions
 	-includes all the php files in control/functions/ directory
+	
+createDatabase
+	-creates a database called mydb and inserts the users table as defined by users.sql
