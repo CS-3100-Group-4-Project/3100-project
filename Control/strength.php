@@ -42,9 +42,9 @@ function checkPassword($pwd)
 	echo "Please Check Your Email";
     }
 }
-?>
 
-<?php
+
+
 $error = "error fam";
 $con = mysqli_connect("localhost", "root", "") or die(mysql_error()); 
 mysqli_select_db($con, "mydb") or die(mysql_error()); 
@@ -53,12 +53,30 @@ $msg = 'Your account has been made, <br /> please verify it by clicking the acti
 $password = $_POST['password'];
 $email = $_POST['email'];
 $name = $_POST['name'];
-checkPassword($password);
+//checkPassword($password);
 $randompassword = rand(1000,7000);
 $addhash = md5(rand(0,1000));
 $hash = password_hash($password,PASSWORD_DEFAULT);
 
+$query = mysqli_query($con, "SELECT * FROM users WHERE username='$name'");
+$count = mysqli_num_rows($query);
 
+
+$query = mysqli_query($con, "SELECT * FROM users WHERE email='$email'");
+$count2 = mysqli_num_rows($query);
+
+
+if($count>0)
+{
+	echo"This Username is taken<br>";
+	if($count2>0)
+	{
+		echo "This email is taken<br>";
+	}
+}
+else
+{
+checkPassword($password);
 mysqli_query($con, "INSERT INTO users (username, password, email, hash) VALUES(
 '". mysqli_escape_string($con, $name) ."', 
 '". mysqli_escape_string($con, $hash) ."', 
@@ -79,15 +97,8 @@ else
 	$verify = FALSE;
 //	echo 'password is WRONG';
 }
-?>
 
 
-
-?>
-
-
-
-<?php
 $to      = $email; // Send email to our user
 $subject = 'Signup | Verification'; // Give the email a subject 
 $message = '
@@ -107,7 +118,7 @@ http://localhost/verifyemailandstuff.php?email='.$email.'&hash='.$hash.'
                      
 $headers = 'From:noreply@yourwebsite.com' . "\r\n"; // Set from headers
 mail($to, $subject, $message, $headers); // Send our email
-
+}
 ?>
 
 
