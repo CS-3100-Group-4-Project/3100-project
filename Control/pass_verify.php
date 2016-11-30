@@ -39,5 +39,9 @@ else
 	$userverify=FALSE;
 	echo 'username is WRONG<br>';
 }
+
+
+$newURL = 'http://localhost/hubscreen.php';
+header('Location: '.$newURL); //redirect to hub
 ?>
 
