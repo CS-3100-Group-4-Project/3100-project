@@ -30,6 +30,11 @@ package
 		private var distractions:Array = new Array();
 		private var distractionSize:int = 0;
 		
+		private var hpText:TextField = new TextField();
+		private var hp:HealthBar = new HealthBar(0xCC0000);
+		private var hpTotal:HealthBar = new HealthBar(0x000000);
+		private var numberHealth:int = 100;
+		
 		[Embed(source = "../res/gameBackgroundMusic.mp3")]
 		private var music:Class;
 		private var bgm:Sound;
@@ -48,6 +53,18 @@ package
 			hud.x = 5;
 			hud.y = 5;
 			addChild(hud);
+			
+			hpText.x = 575;
+			hpText.y = 23;
+			hpText.defaultTextFormat = textStyle;
+			hpText.text = "Health:";
+			addChild(hpText);
+			hpTotal.x = 650;
+			hpTotal.y = 36;
+			addChild(hpTotal);
+			hp.x = 650;
+			hp.y = 36;
+			addChild(hp);
 			
 			target.x = xPos;
 			target.y = yPos;
@@ -77,6 +94,25 @@ package
 		{
 			if (playing == true)
 			{
+				var i:int; 
+				for (i = 0; i < distractionSize; i++) 
+				{
+					if ((mouseX < (distractions[i].x + (distractions[i].width / 2))) && (mouseX > (distractions[i].x - (distractions[i].width / 2))) && 
+					(mouseY < (distractions[i].y + (distractions[i].height / 2))) && (mouseY > (distractions[i].y - (distractions[i].height / 2))))
+					{
+						numberHealth -= 10;
+						if (numberHealth > 100)
+						{
+							numberHealth = 100;
+						}
+					}
+				}
+				
+				if (numberHealth < 0)
+				{
+					numberHealth = 0;
+				}
+				
 				if ((mouseX < (target.x + (target.width / 2))) && (mouseX > (target.x - (target.width / 2))) && 
 					(mouseY < (target.y + (target.height / 2))) && (mouseY > (target.y - (target.height / 2))))
 				{
@@ -120,6 +156,12 @@ package
 						target.ySpeed += 1;
 					}
 					target.adjust();
+					
+					numberHealth += 25;
+					if (numberHealth > 100)
+					{
+						numberHealth = 100;
+					}
 				}
 			}
 			if (playing == false)
@@ -132,10 +174,12 @@ package
 				target.x = (Math.round(Math.random() * 800));
 				target.y = (Math.round(Math.random() * 600));
 				playing = true;
+				numberHealth = 100;
 				removeChild(gameOver);
 				removeChild(replay);
-				
 			}
+			
+			hp.scaleX = numberHealth / 100;
 		}
 		
 		
@@ -178,10 +222,36 @@ package
 				timeBox.text = "Time: " + time;
 				target.adjust();
 				
-				var i:int; 
-				for (i = 0; i < distractionSize; i++) 
+				var index:int; 
+				for (index = 0; index < distractionSize; index++) 
 				{ 
-					 distractions[i].adjust();
+					 distractions[index].adjust();
+				}
+				
+				if (numberHealth <= 0)
+				{
+					var i:int; 
+					for (i = 0; i < distractionSize; i++) 
+					{ 
+						 removeChild(distractions[0]);
+						 distractions.splice(0,1);
+					}
+					distractionSize = 0;
+					
+					numberHealth = 0;
+					playing = false;
+					
+					gameOver.x = 330;
+					gameOver.y = 270;
+					gameOver.defaultTextFormat = textStyle;
+					gameOver.text = "Game Over";
+					addChild(gameOver);
+					
+					replay.x = 330;
+					replay.y = 300;
+					replay.defaultTextFormat = textStyle;
+					replay.text = "Play Again?";
+					addChild(replay);
 				}
 			}
 		}
