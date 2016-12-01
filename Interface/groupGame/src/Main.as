@@ -15,7 +15,6 @@ package
 		private var cam:MovieClip = new MovieClip();
 		public var target:Target = new Target(0x0000FF);
 		private var playing:Boolean = true;
-		private var hud:HUD = new HUD();
 		private var score:int = 0;
 		private var time:int = 5;
 		private var timeFrames:int = 45;
@@ -27,13 +26,10 @@ package
 		private var replay:TextField = new TextField();
 		private var textStyle:TextFormat = new TextFormat("Arial", 18, 0x000000);
 		
+		private var hud:HUD = new HUD(textStyle);
+		
 		private var distractions:Array = new Array();
 		private var distractionSize:int = 0;
-		
-		private var hpText:TextField = new TextField();
-		private var hp:HealthBar = new HealthBar(0xCC0000);
-		private var hpTotal:HealthBar = new HealthBar(0x000000);
-		private var numberHealth:int = 100;
 		
 		[Embed(source = "../res/gameBackgroundMusic.mp3")]
 		private var music:Class;
@@ -57,18 +53,6 @@ package
 			hud.x = 5;
 			hud.y = 5;
 			addChild(hud);
-			
-			hpText.x = 575;
-			hpText.y = 23;
-			hpText.defaultTextFormat = textStyle;
-			hpText.text = "Health:";
-			addChild(hpText);
-			hpTotal.x = 650;
-			hpTotal.y = 36;
-			addChild(hpTotal);
-			hp.x = 650;
-			hp.y = 36;
-			addChild(hp);
 			
 			target.x = xPos;
 			target.y = yPos;
@@ -105,14 +89,14 @@ package
 					if ((mouseX < (distractions[i].x + (distractions[i].width / 2))) && (mouseX > (distractions[i].x - (distractions[i].width / 2))) && 
 					(mouseY < (distractions[i].y + (distractions[i].height / 2))) && (mouseY > (distractions[i].y - (distractions[i].height / 2))))
 					{
-						numberHealth -= 10;
+						hud.numberHealth -= 10;
 						badClickSound.play(0, 1);
 					}
 				}
 				
-				if (numberHealth < 0)
+				if (hud.numberHealth < 0)
 				{
-					numberHealth = 0;
+					hud.numberHealth = 0;
 				}
 				
 				if ((mouseX < (target.x + (target.width / 2))) && (mouseX > (target.x - (target.width / 2))) && 
@@ -159,10 +143,10 @@ package
 					}
 					target.adjust();
 					
-					numberHealth += 25;
-					if (numberHealth > 100)
+					hud.numberHealth += 25;
+					if (hud.numberHealth > 100)
 					{
-						numberHealth = 100;
+						hud.numberHealth = 100;
 					}
 				}
 			}
@@ -176,12 +160,12 @@ package
 				target.x = (Math.round(Math.random() * 800));
 				target.y = (Math.round(Math.random() * 600));
 				playing = true;
-				numberHealth = 100;
+				hud.numberHealth = 100;
 				removeChild(gameOver);
 				removeChild(replay);
 			}
 			
-			hp.scaleX = numberHealth / 100;
+			hud.hp.scaleX = hud.numberHealth / 100;
 		}
 		
 		
@@ -230,7 +214,7 @@ package
 					 distractions[index].adjust();
 				}
 				
-				if (numberHealth <= 0)
+				if (hud.numberHealth <= 0)
 				{
 					var tempI:int; 
 					for (tempI = 0; tempI < distractionSize; tempI++) 
@@ -240,7 +224,7 @@ package
 					}
 					distractionSize = 0;
 					
-					numberHealth = 0;
+					hud.numberHealth = 0;
 					playing = false;
 					
 					gameOver.x = 330;
