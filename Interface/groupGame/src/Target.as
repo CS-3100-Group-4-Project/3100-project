@@ -11,9 +11,9 @@ package
 		public var radiusMin:int = 5;
 		
 		
-		public function Target() 
+		public function Target(color:uint) 
 		{
-			this.graphics.beginFill(0x0000FF, 1);
+			this.graphics.beginFill(color, 1);
 			this.graphics.drawCircle(this.x, this.y, radius);
 			this.graphics.endFill();
 		}

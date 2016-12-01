@@ -9,13 +9,12 @@ package
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	
-	[SWF(backgroundColor="0xec9900")]
+	[SWF(backgroundColor="0x00CC00")]
 	public class Main extends Sprite 
 	{
 		private var cam:MovieClip = new MovieClip();
-		public var target:Target = new Target;
+		public var target:Target = new Target(0x0000FF);
 		private var playing:Boolean = true;
-		private var hud:HUD = new HUD();
 		private var score:int = 0;
 		private var time:int = 5;
 		private var timeFrames:int = 45;
@@ -27,9 +26,18 @@ package
 		private var replay:TextField = new TextField();
 		private var textStyle:TextFormat = new TextFormat("Arial", 18, 0x000000);
 		
+		private var hud:HUD = new HUD(textStyle);
+		
+		private var distractions:Array = new Array();
+		private var distractionSize:int = 0;
+		
 		[Embed(source = "../res/gameBackgroundMusic.mp3")]
 		private var music:Class;
 		private var bgm:Sound;
+		
+		[Embed(source="../res/badClick.mp3")]
+		private var BadClick:Class;
+		private var badClickSound:Sound;
 		
 		[Embed(source = "../res/goodClick.mp3")]
 		private var GoodClick:Class; 		 
@@ -63,6 +71,7 @@ package
 			this.graphics.lineStyle(0, 0x000000, 0.5);
 			this.graphics.drawRect(0, 0, 799, 599);
 			
+			badClickSound = (new BadClick) as Sound;
 			goodClickSound = (new GoodClick) as Sound; 	
 			
 			stage.addEventListener(Event.ENTER_FRAME, checkStuff);
@@ -74,15 +83,37 @@ package
 		{
 			if (playing == true)
 			{
+				var i:int; 
+				for (i = 0; i < distractionSize; i++) 
+				{
+					if ((mouseX < (distractions[i].x + (distractions[i].width / 2))) && (mouseX > (distractions[i].x - (distractions[i].width / 2))) && 
+					(mouseY < (distractions[i].y + (distractions[i].height / 2))) && (mouseY > (distractions[i].y - (distractions[i].height / 2))))
+					{
+						hud.numberHealth -= 10;
+						badClickSound.play(0, 1);
+					}
+				}
+				
+				if (hud.numberHealth < 0)
+				{
+					hud.numberHealth = 0;
+				}
+				
 				if ((mouseX < (target.x + (target.width / 2))) && (mouseX > (target.x - (target.width / 2))) && 
 					(mouseY < (target.y + (target.height / 2))) && (mouseY > (target.y - (target.height / 2))))
 				{
+					distractions.push(new Target(0xCC0000));
+					distractions[distractionSize].x = (Math.round(Math.random() * 800));
+					distractions[distractionSize].y = 100 + (Math.round(Math.random() * 500));
+					addChild(distractions[distractionSize]);
+					distractionSize += 1;
+					
 					goodClickSound.play(0, 1);
 					score += 10;
 					time = 5;
 					timeFrames = 45;
 					target.x = (Math.round(Math.random() * 800));
-					target.y = (Math.round(Math.random() * 600));
+					target.y = 100 + (Math.round(Math.random() * 500));
 					target.radius = 25;
 					
 					if ((Math.round(Math.random() * 2)) < 2)
@@ -111,6 +142,12 @@ package
 						target.ySpeed += 1;
 					}
 					target.adjust();
+					
+					hud.numberHealth += 25;
+					if (hud.numberHealth > 100)
+					{
+						hud.numberHealth = 100;
+					}
 				}
 			}
 			if (playing == false)
@@ -123,10 +160,12 @@ package
 				target.x = (Math.round(Math.random() * 800));
 				target.y = (Math.round(Math.random() * 600));
 				playing = true;
+				hud.numberHealth = 100;
 				removeChild(gameOver);
 				removeChild(replay);
-				
 			}
+			
+			hud.hp.scaleX = hud.numberHealth / 100;
 		}
 		
 		
@@ -141,6 +180,14 @@ package
 					time -= 1;
 					if (time < 0)
 					{
+						var i:int; 
+						for (i = 0; i < distractionSize; i++) 
+						{ 
+							 removeChild(distractions[0]);
+							 distractions.splice(0,1);
+						}
+						distractionSize = 0;
+						
 						time = 0;
 						playing = false;
 						
@@ -160,6 +207,38 @@ package
 				textBox.text = "Score: " + score;
 				timeBox.text = "Time: " + time;
 				target.adjust();
+				
+				var index:int; 
+				for (index = 0; index < distractionSize; index++) 
+				{ 
+					 distractions[index].adjust();
+				}
+				
+				if (hud.numberHealth <= 0)
+				{
+					var tempI:int; 
+					for (tempI = 0; tempI < distractionSize; tempI++) 
+					{ 
+						 removeChild(distractions[0]);
+						 distractions.splice(0,1);
+					}
+					distractionSize = 0;
+					
+					hud.numberHealth = 0;
+					playing = false;
+					
+					gameOver.x = 330;
+					gameOver.y = 270;
+					gameOver.defaultTextFormat = textStyle;
+					gameOver.text = "Game Over";
+					addChild(gameOver);
+					
+					replay.x = 330;
+					replay.y = 300;
+					replay.defaultTextFormat = textStyle;
+					replay.text = "Play Again?";
+					addChild(replay);
+				}
 			}
 		}
 	}
