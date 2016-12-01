@@ -39,6 +39,10 @@ package
 		private var music:Class;
 		private var bgm:Sound;
 		
+		[Embed(source="../res/badClick.mp3")]
+		private var BadClick:Class;
+		private var badClickSound:Sound;
+		
 		[Embed(source = "../res/goodClick.mp3")]
 		private var GoodClick:Class; 		 
 		private var goodClickSound:Sound;		     
@@ -83,6 +87,7 @@ package
 			this.graphics.lineStyle(0, 0x000000, 0.5);
 			this.graphics.drawRect(0, 0, 799, 599);
 			
+			badClickSound = (new BadClick) as Sound;
 			goodClickSound = (new GoodClick) as Sound; 	
 			
 			stage.addEventListener(Event.ENTER_FRAME, checkStuff);
@@ -101,10 +106,7 @@ package
 					(mouseY < (distractions[i].y + (distractions[i].height / 2))) && (mouseY > (distractions[i].y - (distractions[i].height / 2))))
 					{
 						numberHealth -= 10;
-						if (numberHealth > 100)
-						{
-							numberHealth = 100;
-						}
+						badClickSound.play(0, 1);
 					}
 				}
 				
