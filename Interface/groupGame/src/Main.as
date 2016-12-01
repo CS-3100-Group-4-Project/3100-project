@@ -9,11 +9,11 @@ package
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	
-	[SWF(backgroundColor="0xec9900")]
+	[SWF(backgroundColor="0x00CC00")]
 	public class Main extends Sprite 
 	{
 		private var cam:MovieClip = new MovieClip();
-		public var target:Target = new Target;
+		public var target:Target = new Target(0x0000FF);
 		private var playing:Boolean = true;
 		private var hud:HUD = new HUD();
 		private var score:int = 0;
@@ -26,6 +26,9 @@ package
 		private var gameOver:TextField = new TextField();
 		private var replay:TextField = new TextField();
 		private var textStyle:TextFormat = new TextFormat("Arial", 18, 0x000000);
+		
+		private var distractions:Array = new Array();
+		private var distractionSize:int = 0;
 		
 		[Embed(source = "../res/gameBackgroundMusic.mp3")]
 		private var music:Class;
@@ -77,12 +80,18 @@ package
 				if ((mouseX < (target.x + (target.width / 2))) && (mouseX > (target.x - (target.width / 2))) && 
 					(mouseY < (target.y + (target.height / 2))) && (mouseY > (target.y - (target.height / 2))))
 				{
+					distractions.push(new Target(0xCC0000));
+					distractions[distractionSize].x = (Math.round(Math.random() * 800));
+					distractions[distractionSize].y = 100 + (Math.round(Math.random() * 500));
+					addChild(distractions[distractionSize]);
+					distractionSize += 1;
+					
 					goodClickSound.play(0, 1);
 					score += 10;
 					time = 5;
 					timeFrames = 45;
 					target.x = (Math.round(Math.random() * 800));
-					target.y = (Math.round(Math.random() * 600));
+					target.y = 100 + (Math.round(Math.random() * 500));
 					target.radius = 25;
 					
 					if ((Math.round(Math.random() * 2)) < 2)
@@ -141,6 +150,14 @@ package
 					time -= 1;
 					if (time < 0)
 					{
+						var i:int; 
+						for (i = 0; i < distractionSize; i++) 
+						{ 
+							 removeChild(distractions[0]);
+							 distractions.splice(0,1);
+						}
+						distractionSize = 0;
+						
 						time = 0;
 						playing = false;
 						
@@ -160,6 +177,12 @@ package
 				textBox.text = "Score: " + score;
 				timeBox.text = "Time: " + time;
 				target.adjust();
+				
+				var i:int; 
+				for (i = 0; i < distractionSize; i++) 
+				{ 
+					 distractions[i].adjust();
+				}
 			}
 		}
 	}
