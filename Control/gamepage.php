@@ -21,7 +21,9 @@
 		<?php
 			$con = mysqli_connect("localhost", "root", ""); 
 			mysqli_select_db($con, "mydb"); 
-			$results=mysqli_query("SELECT username FROM users WHERE online = '1'");
+			$results=mysqli_query($con,"SELECT username FROM users WHERE online = '1'");
+			$results=mysqli_fetch_assoc($results);
+			$results=reset($results);
 			echo "Username: $results";
 			mysqli_close($con);
 		?>
