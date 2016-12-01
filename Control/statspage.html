@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>View Statistics</title>
+	</head>
+
+	<body>
+		<?php
+		$username="root";
+		$password="";
+		$database="mydb";
+		$con = mysqli_connect("localhost", "root", "", "mydb");
+		
+		$query = "select * from users";
+		$data = mysqli_query($con, $query);
+		$num = mysqli_num_rows($data)
+			
+		mysql_close();
+		?>
+		
+		<h3><center>Clicker Statistics</center></h3>
+		<table border = 1px cellspacing = "2" cellpadding = "2" align = "center">
+			<tr>
+				<th>Username</th>
+				<th>High Score</th>
+				<th>Online?</th>
+				<th>Number of Games</th>
+			</tr>
+			<?php
+			$i = 0;
+			while($i < $num)
+			{
+				$f1 = mysql_result($data,$i,"username");
+				$f2 = mysql_result($data,$i,"high_score");
+				$f3 = mysql_result($data,$i,"online");
+				$f4 = mysql_result($data,$i,"num_games");
+			?>
+			<tr>
+				<td><?php echo $f1?></td>
+				<td><?php echo $f2?></td>
+				<td><?php echo $f3?></td>
+				<td><?php echo $f4?></td>		
+			</tr>
+			<?php
+			$i++;} ?>
+		</table>
+	</body>
+</html>

@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 	<head>
 		<title>Play the Game!</title>
@@ -13,9 +14,19 @@
 			background-color: deepskyblue;
 			width: 250px;
 			height: 650px;
+			text-align: center;
 		}
 	</style>
-	<div class="square"></div>
+	<div class="square">
+		<?php
+			$con = mysqli_connect("localhost", "root", ""); 
+			mysqli_select_db($con, "mydb"); 
+			$results=mysqli_query("SELECT username FROM users WHERE online = '1'");
+			echo "Username: $results";
+			mysqli_close($con);
+		?>
+		
+	</div>
 	<style> .center {
 				text-align: center;
 				float: center;
