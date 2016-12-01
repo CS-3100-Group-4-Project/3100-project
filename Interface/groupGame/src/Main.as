@@ -232,8 +232,8 @@ package
 				
 				if (numberHealth <= 0)
 				{
-					var i:int; 
-					for (i = 0; i < distractionSize; i++) 
+					var tempI:int; 
+					for (tempI = 0; tempI < distractionSize; tempI++) 
 					{ 
 						 removeChild(distractions[0]);
 						 distractions.splice(0,1);
