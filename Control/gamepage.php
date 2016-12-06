@@ -4,6 +4,10 @@
 		<title>Play the Game!</title>
 	</head>
 	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 	<body>
 	<div style="background-color:deepskyblue; float:center; 
 	width:1500px; height:150px; text-align:center;" >
@@ -31,12 +35,14 @@
 		?>
 		<br>
 		<br>
-		<a href="statspage.php" style="color:black; text-decoration: none;">View User Statistics</a>	
+		<form action="statspage.php">
+			<button class="btn btn-primary" href=>View User Statistics</button>
+		</form>
 		<br>
 		<br>
 		<form align="center" name="form1" method="post" action="Functions\setLoggedOut.php">
 			<label>
-				<input name="submit2" type="submit" id="submit2" value="log out">
+				<button class="btn btn-primary" type="submit" id="submit2" name="login" value="1">Log out</button>
 			</label>
 		</form>
 	</div>
