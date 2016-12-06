@@ -6,7 +6,7 @@ echo "You're account has been successfully verified!";
 
 
 <html>
-<body>
+<body background="bg.png">
 
 
 <form action="index.php" method="post">

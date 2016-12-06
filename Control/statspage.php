@@ -4,7 +4,7 @@
 		<title>View Statistics</title>
 	</head>
 
-	<body>
+	<body background="bg.png">
 	<form action="gamepage.php" method="post">
 	<button class="btn btn-primary" type="submit" name="create_acc" value="1">Return to Game</button>
 	</form>

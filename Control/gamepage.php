@@ -8,7 +8,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-	<body>
+	<body background="bg.png">
 	<div style="background-color:deepskyblue; float:center; 
 	width:1500px; height:150px; text-align:center;" >
 	<br><br><strong><font size="25">Click Me!</font><strong><br>
@@ -33,6 +33,7 @@
 			$results=mysqli_fetch_assoc($results);
 			$results=reset($results);
 			echo "Welcome, $results!";
+			
 			
 		?>
 		<br>
@@ -73,6 +74,8 @@ $results=mysqli_fetch_assoc($results);
 $results=reset($results);
 if(isset($_POST["score"]))
 {
+$query = "UPDATE `users` SET num_games = num_games + 1 WHERE username = '$name'";
+mysqli_query($con,$query);
 $temp_score = $_POST["score"];
 if($temp_score > $results)
 {

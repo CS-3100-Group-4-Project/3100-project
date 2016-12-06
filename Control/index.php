@@ -1,5 +1,5 @@
 <html>
-<body>
+<body background="bg.png">
 
 <style>
 .center {

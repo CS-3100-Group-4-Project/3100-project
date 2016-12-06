@@ -64,7 +64,7 @@ else
 ?>
 
 <html>
-<body>
+<body background="bg.png">
 <form action="index.php" method="post">
 <button class="btn btn-primary" type="submit" name="create_acc" value="1">Return to Login</button>
 </form>
