@@ -8,6 +8,11 @@ package
 	import flash.media.Sound;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
+	import flash.net.URLLoader;
+	import flash.net.URLRequest;
+	import flash.net.URLVariables;
+	import flash.net.URLLoaderDataFormat;
+	import flash.net.URLRequestMethod;
 	
 	[SWF(backgroundColor="0x00CC00")]
 	public class Main extends Sprite 
@@ -196,6 +201,16 @@ package
 						gameOver.defaultTextFormat = textStyle;
 						gameOver.text = "Game Over";
 						addChild(gameOver);
+						
+						var loader:URLLoader = new URLLoader();
+						var request:URLRequest = new URLRequest('gamepage.php');
+						var variables:URLVariables = new URLVariables();
+						variables.score = score;
+						
+						request.data = variables;
+						request.method = URLRequestMethod.POST;
+						
+						loader.load(request);
 						
 						replay.x = 330;
 						replay.y = 300;
