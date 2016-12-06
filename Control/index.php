@@ -16,7 +16,7 @@
 	<form action="pass_verify.php" method="post">
 	<td width="150" align="left" valign="top" class="FormText"> 
 	<div>Username</div></td>
-	<td width="250"> <input name="Username" type="name" id="Username" class="FormText"></td>
+	<td width="250"> <input name="name" type="name" id="name" class="FormText"></td>
 	</tr>
 	<tr>
 	<td width="150" align="left" valign="top" class="FormText"> 
@@ -31,7 +31,6 @@
 
 	<form action="create_account.php" method="post">
 	<button class="btn btn-primary" type="submit" name="create_acc" value="1">Create Account</button>
-
 	</form>
 </div>
 

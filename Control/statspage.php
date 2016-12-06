@@ -5,6 +5,9 @@
 	</head>
 
 	<body>
+	<form action="gamepage.php" method="post">
+	<button class="btn btn-primary" type="submit" name="create_acc" value="1">Return to Game</button>
+	</form>
 		<?php
 		$username="root";
 		$password="";

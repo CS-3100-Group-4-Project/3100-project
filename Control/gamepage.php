@@ -21,20 +21,22 @@
 		<br>
 		<br>
 		<?php
+			session_start();
+			$name = $_SESSION['name'];
 			$con = mysqli_connect("localhost", "root", ""); 
 			mysqli_select_db($con, "mydb"); 
-			$results=mysqli_query($con,"SELECT username FROM users WHERE online = '1'");
+			$results=mysqli_query($con,"SELECT username FROM users WHERE username = '$name'");
 			$results=mysqli_fetch_assoc($results);
 			$results=reset($results);
 			echo "Welcome, $results!";
-			mysqli_close($con);
+			
 		?>
 		<br>
 		<br>
 		<a href="statspage.php" style="color:black; text-decoration: none;">View User Statistics</a>	
 		<br>
 		<br>
-		<form align="center" name="form1" method="post" action="Functions\setLoggedOut.php">
+		<form align="center" name="form1" method="post" action="logout.php">
 			<label>
 				<input name="submit2" type="submit" id="submit2" value="log out">
 			</label>
@@ -55,3 +57,21 @@
 	</div>
 	</body>
 </html>
+
+<?php
+
+$name = $_SESSION['name'];
+$query = "SELECT high_score FROM users WHERE username = '$name'";
+$results = mysqli_query($con,$query);
+$results=mysqli_fetch_assoc($results);
+$results=reset($results);
+if(isset($_POST["score"]))
+{
+$temp_score = $_POST["score"];
+if($temp_score > $results)
+{
+	$query = "UPDATE `users` SET `high_score` = $temp_score WHERE `username` = '$name'";
+	mysqli_query($con,$query);
+}
+}
+?>

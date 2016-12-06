@@ -9,7 +9,7 @@ echo "You're account has been successfully verified!";
 <body>
 
 
-<form action="login.php" method="post">
+<form action="index.php" method="post">
 <button type="submit" name="login" value="1">Proceed to Log In</button>
 </form>
 
