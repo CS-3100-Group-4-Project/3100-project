@@ -25,6 +25,7 @@ package
 		private var timeFrames:int = 45;
 		private var xPos:int = 350;
 		private var yPos:int = 350;
+		private var particles:Array = [];
 		private var textBox:TextField = new TextField();
 		private var timeBox:TextField = new TextField();
 		private var gameOver:TextField = new TextField();
@@ -113,6 +114,19 @@ package
 					addChild(distractions[distractionSize]);
 					distractionSize += 1;
 					
+					makeParticles(20, target.x, target.y, target.xSpeed, target.ySpeed, 20, 0, 0x00BBFF, 10, "circle");
+					makeParticles(10, target.x, target.y, target.xSpeed / 2, target.ySpeed / 2, 20, 0, 0x00BBFF, 5);
+					makeParticles(10, target.x, target.y, target.xSpeed / 1.5, target.ySpeed / 1.5, 20, 0, 0x00BBFF, 5);
+					makeParticles(10, target.x, target.y, target.xSpeed / 1.25, target.ySpeed / 1.25, 20, 0, 0x00BBFF, 5);
+					makeParticles(20, target.x, target.y, target.xSpeed, target.ySpeed, 5, 0, 0x0000FF, 20, "circle");
+					makeParticles(10, target.x, target.y, target.xSpeed / 2, target.ySpeed / 2, 20, 0, 0x0000FF, 2);
+					makeParticles(10, target.x, target.y, target.xSpeed / 1.5, target.ySpeed / 1.5, 20, 0, 0x0000FF, 2);
+					makeParticles(10, target.x, target.y, target.xSpeed / 1.25, target.ySpeed / 1.25, 20, 0, 0x0000FF, 2);
+					makeParticles(20, target.x, target.y, target.xSpeed, target.ySpeed, 20, 0, 0x00BBFF, 2, "circle");
+					makeParticles(10, target.x, target.y, target.xSpeed / 2, target.ySpeed / 2, 20, 0, 0x00BBFF, 1);
+					makeParticles(10, target.x, target.y, target.xSpeed / 1.5, target.ySpeed / 1.5, 20, 0, 0x00BBFF, 1);
+					makeParticles(10, target.x, target.y, target.xSpeed / 1.25, target.ySpeed / 1.25, 20, 0, 0x00BBFF, 1);
+						
 					goodClickSound.play(0, 1);
 					score += 10;
 					time = 5;
@@ -173,9 +187,33 @@ package
 			hud.hp.scaleX = hud.numberHealth / 100;
 		}
 		
+		public function makeParticles(num:int,xPos:int, yPos:int, xSpeed:int, ySpeed:int, variance:int, grav:int, color:int, size:int, shape:String = "rect", time:int = 10):void
+		{
+			for (var v:int = 0; v < num; v++)
+			{
+				var part:Particle = new Particle(Math.round(Math.random()) * size + 5,grav, color, shape, time);
+				part.x = xPos;
+				part.y = yPos;
+				part.xSpeed = xSpeed + Math.random() * variance - variance / 2;
+				part.ySpeed = ySpeed + Math.random() * variance - variance / 2;
+				part.rSpeed = Math.random() * 10 + 20;
+				cam.addChild(part);
+				particles.push(part);
+			}
+		}
 		
 		public function checkStuff(e:Event):void
 		{
+			for (var p:int = particles.length - 1; p >= 0; p--)
+			{
+				particles[p].update();
+				if (particles[p].timer == 20)
+				{
+					cam.removeChild(particles[p]);
+					particles.splice(p, 1);
+				}
+			}
+			
 			if (playing == true)
 			{
 				timeFrames -= 1;
